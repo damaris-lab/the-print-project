@@ -17,12 +17,7 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			++format;
-			if (*format == '%')
-			{
-				putchar('%');
-				++count;
-			}
-			else if (*format == 'c')
+			if (*format == 'c')
 			{
 				int c = va_args(list, int);
 
