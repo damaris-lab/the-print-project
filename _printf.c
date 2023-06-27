@@ -25,7 +25,7 @@ int _printf(const char *format, ...)
 				count++;
 			}
 			if (*format == 's')
-		       	{
+			{
 				char *str = va_arg(list, char*);
 
 				while (*str != '\0')
@@ -36,7 +36,7 @@ int _printf(const char *format, ...)
 				}
 			}
 			if (*format == '%')
-		       	{
+			{
 				putchar('%');
 				count++;
 			}
