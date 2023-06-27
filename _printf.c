@@ -11,41 +11,46 @@ int _printf(const char *format, ...)
 	va_list list;
 	int count = 0;
 
-	va_start(list, format);
-	while (*format)
+	va_start(list,format);
+	while (*format != '\0')
 	{
 		if (*format == '%')
 		{
-			++format;
-			if (*format == '%')
+			format++;
+			switch (*format)
 			{
-				printf("%%");
-				++count;
+				case 'c':
+					{
+						int c = va_arg(list, int);
+						putchar(c);
+						count++;
+						break;
+					}
+				case 's':
+					{
+						char *str = va_arg(list, char*);
+						while (*str != '\0')
+						{
+							putchar(*str);
+							str++;
+							count++;
+						}
+						break;
+					}
+				case '%':
+					{
+						putchar('%');
+						count++;
+						break;
+					}
 			}
-			if (*format == 'c')
-			{
-				char c = va_arg(list, int);
-
-				putchar(c);
-				++count;
-			}
-			else if (*format == 's')
-			{
-				const char *s = va_arg(list, const char*);
-
-				while (*s)
-				{
-					putchar(*s++);
-					++count;
-				}
-			}
+		}
 		else
 		{
 			putchar(*format);
-			++count;
+			count++;
 		}
-		++format;
-		}
+		format++;
 	}
 	va_end(list);
 	return (count);
