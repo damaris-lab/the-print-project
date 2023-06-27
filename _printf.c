@@ -17,36 +17,36 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			switch (*format)
+			if (*format == 'c')
 			{
-				case 'c': {
-					int c = va_arg(list, int);
+				int c = va_arg(list, int);
 
-					putchar(c);
+				putchar(c);
+				count++;
+			}
+			if (*format == 's')
+		       	{
+				char *str = va_arg(list, char*);
+
+				while (*str != '\0')
+				{
+					putchar(*str);
+					str++;
 					count++;
 				}
-				case 's': {
-					char *str = va_arg(list, char*);
-
-					while (*str != '\0')
-					{
-						putchar(*str);
-						str++;
-						count++;
-					}
-				}
-				case '%': {
-					putchar('%');
-					count++;
-				}
+			}
+			if (*format == '%')
+		       	{
+				putchar('%');
+				count++;
+			}
 		}
-	}
-	else
-	{
-		putchar(*format);
-		count++;
-	}
-	format++;
+		else
+		{
+			putchar(*format);
+			count++;
+		}
+		format++;
 	}
 	va_end(list);
 	return (count);
