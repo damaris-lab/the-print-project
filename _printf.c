@@ -1,7 +1,6 @@
 #include "main.h"
 #include <stdarg.h>
 #include <stdio.h>
-
 /**
  * _printf - prints items based on format
  * @format: the format specifier
@@ -13,7 +12,6 @@ int _printf(const char *format, ...)
 	int count = 0;
 
 	va_start(list, format);
-
 	while (*format)
 	{
 		if (*format == '%')
@@ -26,7 +24,7 @@ int _printf(const char *format, ...)
 			}
 			if (*format == 'c')
 			{
-				int c = va_arg(list, int);
+				char c = va_arg(list, int);
 
 				putchar(c);
 				++count;
