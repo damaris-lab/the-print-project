@@ -19,6 +19,11 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			++format;
+			if (*format == '%')
+			{
+				putchar('%');
+				++count;
+			}
 			if (*format == 'c')
 			{
 				int c = va_arg(list, int);
