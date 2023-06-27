@@ -8,13 +8,46 @@
 int _printf(const char *format, ...)
 {
 	va_list list;
-	int text;
+	int count = 0;
 
 	va_start(list, format);
-	text = vfprintf(stdout, format, list);
-	va_end(arg);
 
-	return (text);
+	while (*format)
+	{
+		if (*format == '%')
+		{
+			++format;
+			if (*format == '%')
+			{
+				putchar('%');
+				++count;
+			}
+			else if (*format == 'c')
+			{
+				int c = va_args(list, int);
+
+				putchar(c);
+				++count;
+			}
+			else if (*format == 's')
+			{
+				const char *s = va_arg(list, const char*);
+
+				while (*s)
+				{
+					putchar(*s++);
+					++count;
+				}
+			}
+		else
+		{
+			putchar(*format);
+			++count;
+		}
+		++format;
+		}
+	}
+	va_end(list);
+	return (count);
 }
-
 
