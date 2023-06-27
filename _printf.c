@@ -21,7 +21,7 @@ int _printf(const char *format, ...)
 			++format;
 			if (*format == '%')
 			{
-				printf("%");
+				printf("\%");
 				++count;
 			}
 			if (*format == 'c')
