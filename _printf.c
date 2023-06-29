@@ -4,14 +4,14 @@
  * @format: format to print
  * Return: 0(success)
  */
-int _printf(cont char *format, ...)
+int _printf(const char *format, ...)
 {
 	va_list list;
 	unsigned int x = 0, y = 0, counter = 0;
 	unsigned int flag;
 	type_t types[] = {
 		{"%", _print_mod}, {"c", _print_char}, {"s", _print_string},
-		{"d", _print_int}, {"i", _print_int}, {"r", _print_reverse},
+		{"d", _print_int}, {"i", _print_int}, {"r", _print_rev},
 		{"R", _print_rot13}, {NULL, NULL}
 	};
 

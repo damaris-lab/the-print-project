@@ -83,4 +83,56 @@ int _print_int(va_list list)
 	}
 	return (counter);
 }
+/**
+ * _print_rev - print string in reverse
+ * @list: arguments
+ * Return: counter
+ */
+int _print_rev(va_list list)
+{
+	char *str = va_arg(list, char*);
+	int x, counter = 0;
+
+	if (str == NULL)
+		str = "(nil)";
+	for (x = 0; str[x] != '\0'; x++)
+		;
+	for (x -= 1; x >= 0; x--)
+	{
+		_putchar(str[x]);
+		counter++;
+	}
+	return (counter);
+}
+/**
+ * _print_rot13 - encodes string in rot13
+ * @list: arguments
+ * Return: counter
+ */
+int _print_rot13(va_list list)
+{
+	char *x = va_arg(list, char*);
+	int a, b, counter = 0;
+	char forward[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	char rotate[] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
+
+	for (a = 0; x[a] != '\0'; a++)
+	{
+		for (b = 0; forward[b] != '\0'; b++)
+		{
+			if (forward[b] == x[a])
+			{
+				_putchar(rotate[b]);
+				counter++;
+				break;
+			}
+		}
+		if (forward[b] == '\0')
+		{
+			_putchar(x[a]);
+			counter++;
+		}
+	}
+	return (counter);
+}
 
