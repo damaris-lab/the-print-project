@@ -3,29 +3,24 @@
 
 /**
  *_prints - prints a character
- *@arg:no of arguement
- *@va_list:pointer variable
+ *@arg::no of arguement
  * Return:count
  */
-int _prints(va_list, arg)
+int _prints(va_list arg)
 {
-	conversio m = {
-	{"%i", printf_int}, {"%d", printf_dec},
-	{"%c", printf_char}, {"%s", printf_string},
-	{"%%", printf_37},
-	{"%p", printf_pointer},
-};
-
 	char *str;
-	int count, count = 0;
-	int i, i = 0;
+	int count;
+	int i;
 
+	i = 0;
+	count = 0;
 
-	str = var_arg(char *str, arg)
+	str = va_arg(arg, char *);
 	while (str[i])
 	{
-		putchar (str[i];
+		_putchar(str[i]);
 		count++;
 		i++;
 	}
-	return (count);
+		return (count);
+}
