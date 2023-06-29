@@ -1,5 +1,78 @@
 #include "main.h"
 /**
+ * buf_size - gets the buffer size
+ * @buf: poiter to the buffer
+ * Return: size
+ */
+size_t buf_size(buffer *buf)
+{
+	if (!buf)
+		return (0);
+	return (buf->size);
+}
+/**
+ * buf_copy - create a copy of the buffer
+ * @buf: pointer to buffer
+ * Return: pointer to copy
+ */
+char *buf_copy(buffer *buf)
+{
+	unsigned int i;
+	char *copy;
+
+	if (!buf)
+		return (NULL);
+
+	copy = malloc(sizeof(char) * buf->size + 1);
+	if (!copy)
+		return (NULL);
+	i = 0;
+	while (i < buf->index)
+	{
+		copy[i] = buf->str[i];
+		i++;
+	}
+	copy[i] = '\0';
+	return (copy);
+}
+/**
+ * write_buffer - writes buffer to str
+ * @buf: pointer to buffer
+ * Return: void
+ */
+void write_buffer(buffer *buf)
+{
+	if (!buf)
+		return;
+	write(1, buf->str, buf->index);
+}
+/**
+ * buf_write - writes and reset the buffer
+ * @buf: pointer to buffer
+ * Return: void
+ */
+void buf_write(buffer *buf)
+{
+	if (!buf || (buf->index <= buf->size))
+		return;
+	write_buffer(buf);
+	buf->index = 0;
+	buf->str[0] = '\0';
+}
+/**
+ * buf_increment - increments index and overflow
+ * @buf: pointer to the buffer
+ * Return: void
+ */
+void buf_increment(buffer *buf)
+{
+	if (!buf)
+		return;
+	buf->index++;
+	buf->overflow++;
+}
+
+/**
  * new_buffer - creates a buffer
  * Return: pointer
  */

@@ -44,6 +44,11 @@ typedef struct print_buffer
 buffer *buf_new();
 buffer *custom_buffer(size_t);
 void end_buffer(buffer *);
+size_t buf_size(buffer *);
+char *buf_copy(buffer *);
+void write_buffer(buffer *);
+void buf_write(buffer *);
+void buf_increment(buffer *);
 /*
  * end buffer functions
  */
