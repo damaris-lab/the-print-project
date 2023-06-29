@@ -27,7 +27,7 @@ int _print_string(va_list list)
 	while (str[x])
 	{
 		_putchar(str[x]);
-		counter ++;
+		counter++;
 		x++;
 	}
 	return (counter);
