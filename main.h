@@ -1,7 +1,5 @@
 #ifndef MAIN_H
-#ifndef _GLOBAL_DEFINITIONS_H
 
-#define _GLOBAL_DEFINITIONS_H
 #define MAIN_H
 #define NULL ((void *) 0)
 #define True 1
@@ -68,6 +66,5 @@ int _putchar(char c);
  * end print functions
  */
 
-#endif/*global definations*/
 #endif/*MAIN_H*/
 

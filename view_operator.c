@@ -7,7 +7,7 @@
  * @index: index where identifier is
  * Return: counter
  */
-int view_operation(buffer *buf, va_list list, const char *str, int index)
+int view_operation(buffer *buf, const char *str, int index)
 {
 	int j, k, fin = 0;
 	type_t oper[] = {
@@ -24,10 +24,6 @@ int view_operation(buffer *buf, va_list list, const char *str, int index)
 		{
 			if (str[j + index] == *(oper[k].identifier))
 			{
-				if (oper[k].identifier != NULL)
-					fin = oper[k].identifier(buf, list);
-				else
-					break;
 				if (fin == 1)
 					return (j + 1);
 			}
