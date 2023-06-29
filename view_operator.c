@@ -24,6 +24,10 @@ int view_operation(buffer *buf, va_list list, const char *str, int index)
 		{
 			if (str[j + index] == *(oper[k].identifier))
 			{
+				if (oper[k].identifier != NULL)
+					fin = oper[k].identifier(buf, list);
+				else
+					break;
 				if (fin == 1)
 					return (j + 1);
 			}
