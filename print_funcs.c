@@ -84,6 +84,37 @@ int _print_int(va_list list)
 	return (counter);
 }
 /**
+ * write_binary - converts digits to binary
+ * @buf: pointer to a buffer
+ * @list: arguments
+ * Return: 1
+ */
+int write_binary(buffer *buf, va_list list)
+{
+	int i = 0;
+	unsigned int num = va_arg(list, int);
+	char array[100] = {'\0'};
+
+	if (num == 0)
+	{
+		buf->str[buf->index] = '0';
+		buf_increment(buf);
+	}
+	while (num > 0)
+	{
+		array[i] = (num % 2) + '0';
+		num /= 2;
+		i++;
+	}
+	while (i--)
+	{
+		write_buffer(buf);
+		buf->str[buf->index] = array[i];
+		buf_increment(buf);
+	}
+	return (1);
+}
+/**
  * _print_rev - print string in reverse
  * @list: arguments
  * Return: counter
