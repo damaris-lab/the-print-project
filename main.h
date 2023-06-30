@@ -1,7 +1,5 @@
 #ifndef MAIN_H
-#ifndef _GLOBAL_DEFINITIONS_H
 
-#define _GLOBAL_DEFINITIONS_H
 #define MAIN_H
 #define NULL ((void *) 0)
 #define True 1
@@ -63,11 +61,12 @@ int _print_char(va_list list);
 int _print_rev(va_list list);
 int _print_rot13(va_list list);
 int _printf(const char *format, ...);
+int view_operation(buffer *buf, va_list list, const char *str, int index);
+int write_binary(buffer *buf, va_list list);
 int _putchar(char c);
 /*
  * end print functions
  */
 
-#endif/*global definations*/
 #endif/*MAIN_H*/
 

@@ -15,7 +15,7 @@ int view_operation(buffer *buf, va_list list, const char *str, int index)
 		{"%", _print_mod}, {"d", _print_int},
 		{"i", _print_int}, {"h", NULL},
 		{" ", NULL}, {"x", NULL},
-		{"b", NULL}, {NULL, NULL}
+		{"b", write_binary}, {NULL, NULL}
 	};
 
 	for (j = 1; str[j + index]; j++)

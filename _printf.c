@@ -6,51 +6,37 @@
  */
 int _printf(const char *format, ...)
 {
+	int i = 0, var = 0;
 	va_list list;
-	unsigned int x = 0, y = 0, counter = 0;
-	unsigned int flag;
-	type_t types[] = {
-		{"%", _print_mod}, {"c", _print_char}, {"s", _print_string},
-		{"d", _print_int}, {"i", _print_int}, {"r", _print_rev},
-		{"R", _print_rot13}, {NULL, NULL}
-	};
+	buffer *buf;
 
+	buf = buf_new();
+	if (buf == NULL && format == NULL)
+		return (-1);
 	va_start(list, format);
-	if (format == NULL || (format[y] == '%' && format[y] == '\0'))
-		return (0);
-	while (format[y] != '\0')
+	while (format[i])
 	{
-		flag = 0;
-		if (format[y] == '%')
+		buf_write(buf);
+		if (format[i] == '%')
 		{
-			x = 0;
-			while (types[x].identifier != NULL && flag == 0)
+			var = view_operation(buf, list, format, i);
+			if (var < 0)
 			{
-				if (*(types[x].identifier) == format[y + 1])
-				{
-					counter += (types[x].function(list));
-					flag = 1;
-				}
-				else
-					x++;
+				i = var;
+				break;
 			}
-			if (types[x].identifier == NULL)
-			{
-				_putchar(format[y]);
-				counter += 1;
-				_putchar(format[y + 1]);
-				counter += 1;
-			}
-			y = y + 2;
+			i += var;
+			continue;
 		}
-		else
-		{
-			_putchar(format[y]);
-			counter += 1;
-			y++;
-		}
+		buf->str[buf->index] = format[i];
+		buf_increment(buf);
+		i++;
 	}
+	write_buffer(buf);
+	if (var <= 0)
+		i = buf->overflow;
+	end_buffer(buf);
 	va_end(list);
-	return (counter);
+	return (i);
 }
 
