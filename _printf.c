@@ -19,7 +19,7 @@ int _printf(const char *format, ...)
 		buf_write(buf);
 		if (format[i] == '%')
 		{
-			var = view_function(buf, list, format, i);
+			var = view_operation(buf, list, format, i);
 			if (var < 0)
 			{
 				i = var;
