@@ -1,43 +1,48 @@
 #include "main.h"
 /**
- * view_operation - scans for the string operator
+ * operation - scans for the string operator
  * @list: arguments
  * @buf: pointer to buffer
  * @str: string to scan
  * @index: index where identifier is
  * Return: counter
  */
-int view_operation(buffer *buf, va_list list, const char *str, int index)
+int operation(buffer *buf, va_list list, const char *src, int src_index)
 {
-	int j, k, fin = 0;
-	type_t oper[] = {
-		{"c", _print_char}, {"s", _print_string},
-		{"%", _print_mod}, {"d", _print_int},
-		{"i", _print_int}, {"h", NULL},
-		{" ", NULL}, {"x", NULL},
-		{"b", write_binary}, {NULL, NULL}
+	int j, k, count = 0;
+	type_t array[] = {
+		{"c", print_char}, {"s", print_string},
+		{"%", print_mod}, {"d", print_int},
+		{"i", print_int}, {"h", NULL},
+		{"x", NULL}, {"b", write_binary},
+		{"r", NULL},
+		{NULL, NULL}
 	};
 
-	for (j = 1; str[j + index]; j++)
+	for (j = 1; src[j + src_index]; j++)
 	{
-		for (k = 0; oper[k].identifier; k++)
+		for (k = 0; array[k].identifier; k++)
 		{
-			if (str[j + index] == *(oper[k].identifier))
+			if (src[j + src_index] == *(array[k].identifier))
 			{
-				if (fin == 1)
+				if (array[k].function != NULL)
+					count = array[k].function(buf, list);
+				else
+					break;
+				if (count == 1)
 					return (j + 1);
 			}
 		}
-		if (oper[k].identifier == NULL && str[j + index])
+		if (array[k].identifier == NULL && src[j + src_index])
 		{
-			buf->str[buf->index] = str[index];
+			buf->str[buf->index] = src[src_index];
 			buf_increment(buf);
 			return (1);
 		}
 	}
-	if (str[j + index] == '\0')
+	if (src[j + src_index] == '\0')
 	{
-		buf->str[buf->index] = str[index + j];
+		buf->str[buf->index] = src[src_index + j];
 		return (-1);
 	}
 	return (j);

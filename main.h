@@ -1,10 +1,6 @@
 #ifndef MAIN_H
 
 #define MAIN_H
-#define NULL ((void *) 0)
-#define True 1
-#define False 0
-
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
@@ -19,8 +15,10 @@
 typedef struct type_s
 {
 	char *identifier;
-	int (*function)(va_list);
-} type_t;
+	int *function(buffer *, va_list);
+}type_t;
+
+type_t *type_t_init();
 
 /**
  * struct print_buffer - struct for a print buffer
@@ -35,35 +33,34 @@ typedef struct print_buffer
 	size_t size;
 	size_t overflow;
 	char *str;
-} buffer;
+}buffer;
 /*
  * buffer functions
  */
+void buf_increment(buffer *buf);
 buffer *buf_new();
-buffer *custom_buffer(size_t);
-void end_buffer(buffer *);
-size_t buf_size(buffer *);
-char *buf_copy(buffer *);
-void write_buffer(buffer *);
-void buf_write(buffer *);
-void buf_increment(buffer *);
+buffer *buf_custom(size_t size);
+void buf_end(buffer *buf);
+void buf_wrt(buffer *buf);
+void buf_write(buffer *buf);
+char *buffer_content(buffer *buf);
+size_t buffer_size(buffer *buf);
+size_t buffer_index(buffer *buf);
 /*
  * end buffer functions
  */
-
 /*
  * start of print functions
  */
-int _print_mod(va_list list);
-int _print_string(va_list list);
-int _print_int(va_list list);
-int _print_char(va_list list);
-int _print_rev(va_list list);
-int _print_rot13(va_list list);
-int _printf(const char *format, ...);
-int view_operation(buffer *buf, va_list list, const char *str, int index);
-int write_binary(buffer *buf, va_list list);
 int _putchar(char c);
+int operation(buffer *buf, va_list list, const char *src, int src_index);
+int write_binary(buffer *buf, va_list list);
+int print_mod(buffer *buf, va_list list);
+void append_num(buffer *buf, unsigned int num);
+int print_int(buffer *buf, va_list list);
+int print_string(buffer *buf, va_list list);
+int print_char(buffer *buf, va_list list);
+int _printf(const char *format, ...);
 /*
  * end print functions
  */

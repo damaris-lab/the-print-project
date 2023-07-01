@@ -6,20 +6,24 @@
  */
 int _printf(const char *format, ...)
 {
-	int i = 0, var = 0;
-	va_list list;
+	int i, var;
 	buffer *buf;
+	va_list list;
 
 	buf = buf_new();
-	if (buf == NULL && format == NULL)
+	if (buf == NULL)
+		return (-1);
+	if (format == NULL)
 		return (-1);
 	va_start(list, format);
+	i = var = 0;
+
 	while (format[i])
 	{
-		buf_write(buf);
+		buf_wrt(buf);
 		if (format[i] == '%')
 		{
-			var = view_operation(buf, list, format, i);
+			var = operation(buf, list, format, i);
 			if (var < 0)
 			{
 				i = var;
@@ -32,10 +36,7 @@ int _printf(const char *format, ...)
 		buf_increment(buf);
 		i++;
 	}
-	write_buffer(buf);
-	if (var <= 0)
-		i = buf->overflow;
-	end_buffer(buf);
+	buf_write(buf);
 	va_end(list);
 	return (i);
 }
